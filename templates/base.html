@@ -2,13 +2,10 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>TEST</title>
-    <style>
-        body {
-            font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
-        }
-    </style>
+    <title>{% block title %}タイトル{% endblock %}</title>
 </head>
 <body>
+    {% block header %}ヘッダー{% endblock %}
+    {% block content %}内容{% endblock %}
 </body>
 </html>
