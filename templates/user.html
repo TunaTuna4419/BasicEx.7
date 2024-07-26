@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}ユーザー名{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+<h1>知り合い整理アプリ</h1>
+検索<input type = text id = name name = "name"/> <br>
+
+<h2>ユーザ名:User-name</h2> <br>
+<h2>並び替え</h2><br>
+<button type = button >名前順</button><button type = button >時期順</button><button type = button >講義順</button> <br>
+<button type = button >知り合い新規登録</button>
+<h2>知り合いリスト</h2>
+
+{% for user in Users %}
+<details>
+    <summary>{{user}}</summary>
+    Details of User{{user}}
+  </details>
+{% endfor %}
+
+{% endblock %}
