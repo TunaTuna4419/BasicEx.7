@@ -3,13 +3,28 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-<h1>知り合い作成アプリ</h1>
+<!----------------------------------------------------------------------
+cssスタイル指定
+・ボタンの位置を微調整
+----------------------------------------------------------------------->
+<style>
+    button{
+    position: relative; /* 今の位置を基準 */
+    left: 350px; /* 左から20px */
+    top: 40px;
+    }
+</style>
+
+
+
+<!--以下Html本文--------------------------------------------------------->
+<h1>知り合い作成アプリ</h1> <br>
 <h2>元のユーザー名</h2>
-ユーザー名<input type = text id = name name = "name"/> <br>
+ユーザー名<input type = text id = name name = "name"/> 
 <h2>新しいユーザー名</h2>
-ユーザー名<input type = password id = pass name = "pass"/>
+ユーザー名<input type = text id = name name = "name"/> 
 <h2>元のパスワード</h2>
-パスワード<input type = text id = name name = "name"/> <br>
+パスワード<input type = password id = pass name = "pass"/>
 <h2>新しいパスワード</h2>
 パスワード<input type = password id = pass name = "pass"/> <br>
 <button type = button >更新</button>

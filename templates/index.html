@@ -5,13 +5,46 @@
 
 
 {% block content %}
-<h1>知り合い作成アプリ</h1>
+<!----------------------------------------------------------------------
+cssスタイル指定
+・ボタンの位置を微調整
+・黒い枠追加
+----------------------------------------------------------------------->
+<style>
+    button{
+    position: relative; /* 今の位置を基準 */
+    left: 30px; /* 左から20px */
+    top: 10px;
+    }
+    .border-solid {
+    border: solid;
+    margin-top: -20px; /*見やすさを考慮し、画面上部に空間を入れる*/
+    width: 30%;       /*画面の横幅を最大に設定*/
+    }
+</style>
+
+
+
+<!--以下Html本文-------------------------------------------------------->
+<h1>知り合い整理アプリ</h1> <br>
+
+
+
+<!--ログイン部分--------------------------------------------------------->
 <h2>ログイン</h2>
-ユーザ名<input type = text id = name name = "name"/> <br>
-パスワード<input type = password id = pass name = "pass"/>
-<button type = button >ログイン</button>
+<div class="border-solid">
+ユーザ名:<input type="text" id = "name" name = "name"\> <br>
+パスワード:<input type="password" id = "password" name = "password"\> 
+<button>ログイン</button> <br>
+</div>
+
+
+
+<!--新規アカウント作成部分------------------------------------------------>
 <h2>新規アカウント作成</h2>
-ユーザ名<input type = text id = name name = "name"/> <br>
-パスワード<input type = password id = pass name = "pass"/>
-<button type = button >登録</button>
+<div class="border-solid">
+ユーザ名:<input type="text" id = "name" name = "name"\> <br>
+パスワード:<input type="password" id = "password" name = "password"\>
+<button>登録</button> <br>
+</div>
 {% endblock %}

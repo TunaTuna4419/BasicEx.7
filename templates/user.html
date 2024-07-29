@@ -2,15 +2,36 @@
 {% block title %}ユーザー名{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
+<!----------------------------------------------------------------------
+cssスタイル指定
+・ボタンの位置を微調整
+----------------------------------------------------------------------->
+<style>
+  button{
+    position: relative; /* 今の位置を基準 */
+    left: 10px; /* 左から20px */
+    top: 20px;
+  }
+</style>
+
+
+
+<!--以下Html本文--------------------------------------------------------->
 <h1>知り合い整理アプリ</h1>
 検索<input type = text id = name name = "name"/> <br>
 
-<h2>ユーザ名:User-name</h2> <br>
-<h2>並び替え</h2><br>
-<button type = button >名前順</button><button type = button >時期順</button><button type = button >講義順</button> <br>
-<button type = button >知り合い新規登録</button>
-<h2>知り合いリスト</h2>
 
+
+<!--知り合い新規登録ボタン等-->
+<h2>ユーザ名:User-name</h2> 
+<button type = button >知り合い新規登録</button><br>
+<h2>並び替え</h2>
+<button type = button >名前順</button><button type = button >時期順</button><button type = button >講義順</button> <br>
+
+
+
+<!--知り合い一覧をFor分を用いて表示-->
+<h2>知り合いリスト</h2>
 {% for user in Users %}
 <details>
     <summary>{{user}}</summary>
