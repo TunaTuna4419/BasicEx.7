@@ -9,28 +9,42 @@
     padding:10px;
 }
 .box p {
-margin:0;
-padding:0;
+    margin:0;
+    padding:0;
 }
 table {
-            width: 40%;
-            border-collapse: collapse;
-            border: 1px solid #000;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        th, td {
-            border: 1px solid #000;
-            text-align: center;
-            padding: 8px;
-        }
-        thead {
-            background-color: #4CAF50;
-            color: #FFFFFF;
-        }
-        tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    width: 60%;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    background-color: #f9f9f9;
+    color: #333;
+    display: inline-block;
+    vertical-align: top;
+}
+th, td {
+    border: 1px solid #000;
+    text-align: center;
+    padding: 8px;
+}
+thead {
+    background-color: #4CAF50;
+    color: #FFFFFF;
+}
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.note-box {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+}
+.note-box input[type="text"] {
+    width: 300px;
+    height: 300px;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #000;
+}
 </style>
 {% endblock %}
 
@@ -45,77 +59,70 @@ table {
     <p>受け取ったユーザ名</p>
 </div>
 <form action="#" method="post">
-	<p>知り合い名：<br>
-	<input type="text" name="friend-name"></p>
+    <p>知り合い名：<br>
+    <input type="text" name="friend-name"></p>
     <input type="date">
-	<p>連絡先メモ（直接メールアドレスや電話番号を書くことは危険です。）：<br>
+    <p>連絡先メモ（直接メールアドレスや電話番号を書くことは危険です。）：<br>
     <input type="text" name="contact-address"></p>  
     <button type="submit" name="create-friend" value="value">知り合い登録</button>
 </form>
 
 <h2>時間割</h2>
-<table>
-    <thead>
-        <tr>
-            <th>月</th>
-            <th>火</th>
-            <th>水</th>
-            <th>木</th>
-            <th>金</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="text" name="data1" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data2" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data3" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data4" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data5" style="width: 100%; box-sizing: border-box;"></td>
-        </tr>
-        <tr>
-            <td><input type="text" name="data6" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data7" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data8" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data9" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data10" style="width: 100%; box-sizing: border-box;"></td>
-        </tr>
-        <tr>
-            <td><input type="text" name="data6" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data7" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data8" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data9" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data10" style="width: 100%; box-sizing: border-box;"></td>
-        </tr>
-        <tr>
-            <td><input type="text" name="data6" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data7" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data8" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data9" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data10" style="width: 100%; box-sizing: border-box;"></td>
-        </tr>
-        <tr>
-            <td><input type="text" name="data6" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data7" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data8" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data9" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data10" style="width: 100%; box-sizing: border-box;"></td>
-        </tr>
-        <tr>
-            <td><input type="text" name="data6" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data7" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data8" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data9" style="width: 100%; box-sizing: border-box;"></td>
-            <td><input type="text" name="data10" style="width: 100%; box-sizing: border-box;"></td>
-        </tr>
-        <!-- 他の行も同様に続けます -->
-    </tbody>
-</table>
+<div style="display: flex;">
+    <table>
+        <thead>
+            <tr>
+                <th>月</th>
+                <th>火</th>
+                <th>水</th>
+                <th>木</th>
+                <th>金</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" name="data1" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data2" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data3" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data4" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data5" style="width: 100%; box-sizing: border-box;"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="data6" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data7" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data8" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data9" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data10" style="width: 100%; box-sizing: border-box;"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="data11" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data12" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data13" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data14" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data15" style="width: 100%; box-sizing: border-box;"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="data16" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data17" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data18" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data19" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data20" style="width: 100%; box-sizing: border-box;"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="data21" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data22" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data23" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data24" style="width: 100%; box-sizing: border-box;"></td>
+                <td><input type="text" name="data25" style="width: 100%; box-sizing: border-box;"></td>
+            </tr>
+        </tbody>
+    </table>
 
-<form action="#" method="post">
-	<p>備考欄：<br>
-	<input type="text" name="note"></p>
-</form>
-
+    <div class="note-box">
+        <form action="#" method="post">
+            <p>備考欄：<br>
+            <input type="text" name="note"></p>
+        </form>
+    </div>
+</div>
 {% endblock %}
-
-
