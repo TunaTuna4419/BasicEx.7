@@ -24,3 +24,5 @@ button {
     border-radius: 0px; /* 角を丸くする */
     transform: translateY(-50%); /* ボタンの高さの半分だけ上に移動して、正確に中央に配置 */
 }
+
+
