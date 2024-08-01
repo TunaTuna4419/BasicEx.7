@@ -54,7 +54,7 @@
                 </tr>
             </thead>
             <tbody> <!-- 下の角セルのnameは，分けないと後で引数として渡す時大変かも　-->
-                {% for linelectures in lectures %} <!-- linelecturesは時間割1行ずつ -->
+                {% for linelectures in lectures %} <!-- linelecturesは時間割の1行ずつ -->
                     <tr>
                         {% for lecture in linelectures %}
                             <td><input type="text" name="data{{ i * 5 + j + 1 }}" style="width: 100%; box-sizing: border-box;" value={{lecture}}></td>

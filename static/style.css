@@ -29,12 +29,7 @@ button {
 
 /*以下古見が追加したとこ*/
 
-.button-container { /*ボタン位置調整用*/
-    display: flex; /*配置をいじるプロパティを使用できるようになる*/
-    flex-direction: column; /*軸を縦に設定*/
-    justify-content: center; /*軸の中央になるように設定*/
-    margin-left: 10px; /*10ピクセル離す*/
-}
+
 
 .container { /*平文とpタグ文を横並びにする*/
     display: flex;
@@ -96,6 +91,16 @@ tbody tr {
     margin-left: 20px;
 }
 .note-box input[type="text"] {
+    width: 300px;
+    height: 300px;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #000;
+}
+.formatted-text { /*user.html用*/
+    white-space: pre-wrap; /* テキスト内の改行やスペースを保持する */
+}
+.note-box div { /*user.html用*/
     width: 300px;
     height: 300px;
     box-sizing: border-box;
