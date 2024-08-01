@@ -1,3 +1,4 @@
+<!-- アカウント削除とアカウント名の変更ボタン追加 -->
 {% extends "base.html" %}
 {% block title %}ユーザー名{% endblock %}
 {% block header %}{% endblock %}
@@ -18,20 +19,26 @@ cssスタイル指定
 
 <!--以下Html本文--------------------------------------------------------->
 <h1>知り合い整理アプリ</h1>
+<form method="post" action="{{ url_for('delete_user') }}">
+  <input type="hidden" name="user_id" value="{{ user.user_id }}">
+  <button type="submit">アカウント削除</button>
+</form>
+<form action="{{ url_for('update_username') }}">
+  <button type="submit" class="update-button">アカウント名変更</button>
+</form> 
 検索<input type = text id = name name = "name"/> <br>
 
 
 
+
 <!--知り合い新規登録ボタン等-->
-<h2>ユーザ名:User-name</h2> 
+<h2>ユーザ名:{{ user.user_name }}</h2> <br>
 <button type = button >知り合い新規登録</button><br>
-<h2>並び替え</h2>
+<h2>並び替え</h2><br>
 <button type = button >名前順</button><button type = button >時期順</button><button type = button >講義順</button> <br>
 
 
-
-<!--知り合い一覧をFor文を用いて表示-->
-
+{% for user in Users %} 
   <details>
     <summary>{{user}}</summary>
     <p>Details of User{{user}}</p>
@@ -84,5 +91,5 @@ cssスタイル指定
       </div>
     </div>
   </details>
-
+{% endfor %}
 {% endblock %}

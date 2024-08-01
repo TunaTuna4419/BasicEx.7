@@ -1,31 +1,21 @@
-{% extends "base.html" %}
-{% block title %}ユーザ情報更新{% endblock %}
-{% block header %}{% endblock %}
-
-{% block content %}
-<!----------------------------------------------------------------------
-cssスタイル指定
-・ボタンの位置を微調整
------------------------------------------------------------------------>
-<style>
-    button{
-    position: relative; /* 今の位置を基準 */
-    left: 350px; /* 左から20px */
-    top: 40px;
-    }
-</style>
 
 
+<!-- アカウント名を変更用ページ -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update User Name</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div>
+        <h1>アカウント名の更新</h1>
+        <form method="POST" action="{{ url_for('update_username') }}">
+            <label for="name">ユーザ名:{{ user.user_name }}</label><br>
+            <input type="text" id="name" name="name" minlength="3" class="text-input"><br>
+            <input type="submit" value="変更決定" class="button">
+        </form>
+    </div>
+</body>
+</html>
 
-<!--以下Html本文--------------------------------------------------------->
-<h1>知り合い作成アプリ</h1> <br>
-<h2>元のユーザー名</h2>
-ユーザー名<input type = text id = name name = "name"/> 
-<h2>新しいユーザー名</h2>
-ユーザー名<input type = text id = name name = "name"/> 
-<h2>元のパスワード</h2>
-パスワード<input type = password id = pass name = "pass"/>
-<h2>新しいパスワード</h2>
-パスワード<input type = password id = pass name = "pass"/> <br>
-<button type = button >更新</button>
-{% endblock %}
