@@ -1,113 +1,89 @@
-h1 {
-    border: 2px solid orange; /* 枠の色と太さ */
-    background-color: #FFD580; /* 薄いオレンジ色で塗りつぶす */
-    padding: 10px; /* テキスト周りの余白 */
-    display: inline-block; /* テキストの幅に合わせるためにインラインブロックにする */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
-h2 {
-    border: 2px solid #35abeb; /* 枠の色と太さ */
-    background-color: #ADD8E6; /* 薄いオレンジ色で塗りつぶす */
-    padding: 10px; /* テキスト周りの余白 */
-    display: inline-block; /* テキストの幅に合わせるためにインラインブロックにする */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    padding: 2rem;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 button {
-    border: 2px solid green; /* 枠の色と太さ */
-    background-color: #90EE90; /* 薄い緑色で塗りつぶす */
-    padding: 10px 20px; /* テキスト周りの余白 */
-    font-size: 16px; /* フォントサイズを設定 */
-    color: black; /* テキストの色 */
-    cursor: pointer; /* ホバー時にカーソルをポインターに */
-    text-align: center; /* テキストを中央に配置 */
-    text-decoration: none; /* テキストの装飾をなしに */
-    border-radius: 0px; /* 角を丸くする */
-    transform: translateY(-50%); /* ボタンの高さの半分だけ上に移動して、正確に中央に配置 */
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
 }
 
-
-/*以上真太郎が追加したとこ*/
-
-/*以下古見が追加したとこ*/
-
-
-
-.container { /*平文とpタグ文を横並びにする*/
-    display: flex;
-    align-items: center; /* 縦方向の中央揃え */
+button:hover {
+    background-color: #555;
 }
 
-.button-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 45px;  /* 上の余白 */
-    margin-left: 600px;
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
 }
 
-/*ここから文字を四角に収めるスタイル*/
-.length-fit {
-    width: fit-content; /* 子要素の幅に合わせる */
-}
-.box {
-    border: #4e7bcc 1px solid; /*境界線の指定*/
-    padding:10px;
-}
-.box p {
-    margin:0;
-    padding:0;
-}
-/*ここまで文字を四角に収めるスタイル*/
-
-.textbox{ /*テキストボックスの大きさ調節*/
-    padding: 12px;
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
 }
 
-
-/*ここから時間割のスタイル*/
-table {
-    width: 60%;
-    border-collapse: collapse;
-    color: #333;
-    display: inline-block;
-    vertical-align: top;
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
 }
-th, td {
-    border: 1px solid #000;
+
+footer {
+    background-color: #333;
+    color: #fff;
     text-align: center;
-    padding: 8px;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
-thead {
-    background-color: #4CAF50;
-    color: #FFFFFF;
-}
-tbody tr {
-    background-color: #e8e8e8;
-}
-/*ここから時間割のスタイル*/
-
-/*ここから備考欄のスタイル*/
-.note-box {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 20px;
-}
-.note-box input[type="text"] {
-    width: 300px;
-    height: 300px;
-    box-sizing: border-box;
-    padding: 10px;
-    border: 1px solid #000;
-}
-.formatted-text { /*user.html用*/
-    white-space: pre-wrap; /* テキスト内の改行やスペースを保持する */
-}
-.note-box div { /*user.html用*/
-    width: 300px;
-    height: 300px;
-    box-sizing: border-box;
-    padding: 10px;
-    border: 1px solid #000;
-}
-/*ここまで備考欄のスタイル*/
-
 
