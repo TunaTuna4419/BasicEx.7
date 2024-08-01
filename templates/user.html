@@ -30,13 +30,26 @@ cssスタイル指定
 
 
 
-<!--知り合い一覧をFor分を用いて表示-->
+<!--知り合い一覧をFor文を用いて表示-->
+<!--一時的にfor文無くしてるから，後で再度追加-->
 <h2>知り合いリスト</h2>
-{% for user in Users %}
 <details>
-    <summary>{{user}}</summary>
-    Details of User{{user}}
-  </details>
-{% endfor %}
+  <summary>user</summary>
+  <p>Details of Useruser</p>
 
+  <div class="container">
+    <div class="container">
+      <p>知り合った時期：</p>
+      <div class="length-fit">
+        <p class="box"><time datetime="{{date}}">{{date}}</time></p>
+      </div>
+    </div>
+    <div class="container">
+      <p>連絡先メモ：</p>
+        <div class="length-fit">
+          <p class="box">{{contactnote}}</time></p>
+        </div>
+    </div>
+  </div>
+</details>
 {% endblock %}

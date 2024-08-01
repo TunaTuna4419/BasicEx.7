@@ -11,7 +11,7 @@ app = Flask(__name__)
 # TOPページ
 @app.route('/') 
 def show_for_list():
-    return render_template('create-friend.html')
+    return render_template('user.html')
 
 
 
