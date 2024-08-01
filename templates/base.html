@@ -2,14 +2,39 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}タイトル{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
-    {% block head %}
-      <!-- Additional head content can be included here -->
-    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}知り合い整理アプリ{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    {% block header %}ヘッダー{% endblock %}
-    {% block content %}内容{% endblock %}
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">ホーム</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('dashboard') }}">ダッシュボード</a></li>
+                    <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">ログイン</a></li>
+                    <li><a href="{{ url_for('signup') }}">新規登録</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 知り合い整理アプリ</p>
+    </footer>
 </body>
 </html>
+
+

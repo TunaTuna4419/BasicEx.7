@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>ダッシュボード</h1>
+<a href="{{ url_for('add_friend') }}" class="button">知り合いを追加</a>
+<h2>知り合いリスト</h2>
+<ul>
+    {% for friend in friends %}
+    <li>
+        {{ friend.name }} - {{ friend.contact }}
+        <a href="{{ url_for('edit_friend', id=friend.id) }}">編集</a>
+        <form action="{{ url_for('delete_friend', id=friend.id) }}" method="POST" style="display: inline;">
+            <button type="submit" onclick="return confirm('本当に削除しますか？');">削除</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

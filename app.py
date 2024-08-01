@@ -1,168 +1,141 @@
-import os
-from flask import session
-from sqlalchemy.exc import IntegrityError
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-
-# ==================================================
-# インスタンス生成
-# ==================================================
-app = Flask(__name__)
-
-# ==================================================
-# Flaskに対する設定
-# ==================================================
 import os
-# 乱数を設定
-app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['SECRET_KEY'] = os.urandom(24)
-base_dir = os.path.dirname(__file__)
-database = 'sqlite:///' + os.path.join(base_dir, 'data.sqlite')
-app.config['SQLALCHEMY_DATABASE_URI'] = database
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = os.urandom(24)  # よりセキュアなランダムなシークレットキーを生成
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-login_manager = LoginManager()
-login_manager.init_app(app)
 
-# ★db変数を使用してSQLAlchemyを操作できる
 db = SQLAlchemy(app)
-# ★「flask_migrate」を使用できる様にする
-Migrate(app, db)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
-#==================================================
-# モデル
-#==================================================
-# 課題
-class Users(UserMixin,db.Model):
-    # テーブル名
-    __tablename__ = 'users' #user
-    
-    # ユーザID
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True) #user_id = db.Columu(db.Integer)
-    # ユーザ名
-    user_name = db.Column(db.String(20), nullable=False, unique=True)
-    #パスワード
-    password = db.Column(db.String(20), nullable=False)
-    #知り合いIDをまとめたlist
-    friend_id_list = db.Column(db.JSON)
-    # 完了フラグ
-    friend_id = db.Column(db.Integer)   
-    # ログインフラグ
-    is_active = db.Column(db.Boolean, default=False, nullable=False) 
 
-    
-class Friends(db.Model):
-    # テーブル名
-    __tablename__ = 'friends' #user
-    
-    # ユーザID
-    friend_id = db.Column(db.Integer, primary_key=True, autoincrement=True) #user_id = db.Columu(db.Integer)
-    # ユーザ名
-    friend_name = db.Column(db.String(20), nullable=False)
-    #知り合いの時間割
-    timetable = db.Column(db.JSON)
-    #知り合いと出会った時期
-    timing = db.Column(db.DATE)
-    # 知り合い連絡先
-    contact = db.Column(db.String(255))   
-    # その他の備考欄
-    other = db.Column(db.String(255)) 
-    
-# ==================================================
-# ルーティング
-# ==================================================
-# index.htmlを表示する
-@app.route('/')
-def top():
-    return render_template('index.html')
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    friends = db.relationship('Friend', backref='user', lazy=True)
 
-# ログイン後にuser.htmlに情報を渡しながら表示
-@app.route('/user')
-def index():
-    userid = session.get('user_id')
-    user = Users.query.filter_by(user_id=userid).first()
-    
-    return render_template('user.html', user=user)
 
-# ログイン機能
+class Friend(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    contact = db.Column(db.String(120))
+    date_met = db.Column(db.String(80))
+    note = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+
 @login_manager.user_loader
 def load_user(user_id):
-    return Users.query.get(int(user_id))
-        
-# アカウント登録、登録後すぐにuser.htmlに移動できないのでもう一度ログイン必須
+    return User.query.get(int(user_id))
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == "POST":
-        try:
-            username = request.form.get('name')
-            password = request.form.get('pass')
-            # Userのインスタンスを作成
-            users = Users(user_name=username, password=generate_password_hash(password))
-            db.session.add(users)
-            db.session.commit()
-            return render_template('index.html')#login
-        except IntegrityError:
-            db.session.rollback()
-            return "そのユーザ名はすでに使われています。別のユーザ名にしてください。"
-    else:
-        return render_template('index.html')#signup.html
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if User.query.filter_by(username=username).first():
+            flash('このユーザー名はすでに使用されています。', 'danger')
+            return redirect(url_for('signup'))
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+        new_user = User(username=username, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('アカウントが作成されました。ログインしてください。', 'success')
+        return redirect(url_for('login'))
+    return render_template('signup.html')
 
-# ログインの時にユーザ名とパスワードがあっているか確認
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        username = request.form.get('name')
-        password = request.form.get('pass')
-        # Userテーブルからusernameに一致するユーザを取得
-        user = Users.query.filter_by(user_name=username).first()
-        if user is not None:
-            if check_password_hash(user.password, password):
-                login_user(user)
-                session['user_id'] = user.user_id
-                return redirect(url_for('index', user_id=user.user_id))
-            else:
-                return 'ユーザ名かパスワードが違います', 401
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
+            login_user(user)
+            flash('ログインしました。', 'success')
+            return redirect(url_for('dashboard'))
         else:
-            return 'ユーザ名かパスワードが違います'
-    else:
-        return render_template('index.html')#login.html
-    
-#　ログアウト機能、今のところ使えない
+            flash('ログインに失敗しました。ユーザー名またはパスワードを確認してください。', 'danger')
+    return render_template('login.html')
+
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect('login')
+    flash('ログアウトしました。', 'success')
+    return redirect(url_for('index'))
 
-#アカウント削除
-@app.route('/delete', methods=['POST'])
-def delete_user():
-    # 対象データ取得
-    user_id = request.form.get('user_id')
-    user_inf = Users.query.get(user_id)
-    db.session.delete(user_inf)
-    db.session.commit()
-    return render_template('index.html')
 
-#アカウント名の更新、パスワードは変えれない
-@app.route('/update', methods=['GET', 'POST'])
-def update_username():
-    user_id = session.get('user_id')
-    user_inf = Users.query.get(user_id)
-    # POST
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    friends = Friend.query.filter_by(user_id=current_user.id).all()
+    return render_template('dashboard.html', friends=friends)
+
+
+@app.route('/add_friend', methods=['GET', 'POST'])
+@login_required
+def add_friend():
     if request.method == 'POST':
-        # 更新するための処理を書くところ
-        update_name = request.form['name']
-        user_inf.user_name = update_name
+        name = request.form['name']
+        contact = request.form['contact']
+        date_met = request.form['date_met']
+        note = request.form['note']
+        new_friend = Friend(name=name, contact=contact, date_met=date_met, note=note, user_id=current_user.id)
+        db.session.add(new_friend)
         db.session.commit()
-        return redirect(url_for('index'))
-    # GET
-    return render_template('update-user.html', user=user_inf)
+        flash('知り合いが追加されました。', 'success')
+        return redirect(url_for('dashboard'))
+    return render_template('add_friend.html')
 
-# ==================================================
-# 実行
-# ==================================================
+
+@app.route('/edit_friend/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_friend(id):
+    friend = Friend.query.get_or_404(id)
+    if friend.user_id != current_user.id:
+        flash('この操作は許可されていません。', 'danger')
+        return redirect(url_for('dashboard'))
+    if request.method == 'POST':
+        friend.name = request.form['name']
+        friend.contact = request.form['contact']
+        friend.date_met = request.form['date_met']
+        friend.note = request.form['note']
+        db.session.commit()
+        flash('知り合い情報が更新されました。', 'success')
+        return redirect(url_for('dashboard'))
+    return render_template('edit_friend.html', friend=friend)
+
+
+@app.route('/delete_friend/<int:id>', methods=['POST'])
+@login_required
+def delete_friend(id):
+    friend = Friend.query.get_or_404(id)
+    if friend.user_id != current_user.id:
+        flash('この操作は許可されていません。', 'danger')
+        return redirect(url_for('dashboard'))
+    db.session.delete(friend)
+    db.session.commit()
+    flash('知り合いが削除されました。', 'success')
+    return redirect(url_for('dashboard'))
+
+
 if __name__ == '__main__':
-    app.run(port=5656)
+    with app.app_context():
+        db.create_all()  # データベースのテーブルを作成
+    app.run(debug=True)
+
