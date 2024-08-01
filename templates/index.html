@@ -1,3 +1,4 @@
+<!-- アカウント登録とログイン画面 -->
 {% extends "base.html" %}
 {% block title %}ログイン{% endblock %}
 {% block header %}{% endblock %}
@@ -6,12 +7,20 @@
 
 {% block content %}
 <h1>知り合い作成アプリ</h1>
-<h2>ログイン</h2>
-ユーザ名<input type = text id = name name = "name"/> <br>
-パスワード<input type = password id = pass name = "pass"/>
-<button type = button >ログイン</button>
-<h2>新規アカウント作成</h2>
-ユーザ名<input type = text id = name name = "name"/> <br>
-パスワード<input type = password id = pass name = "pass"/>
-<button type = button >登録</button>
+<h1>ログイン</h1>
+<form method="POST" action="{{ url_for('login') }}">
+    <label for="">ユーザ名</label>
+    <input type="text" name="name">
+    <label for="">パスワード</label>
+    <input type="password" name="pass">
+    <input type="submit" value="ログイン">
+</form>
+<h1>ユーザ登録</h1>
+<form method="POST" action="{{ url_for('signup') }}">
+    <label for="">ユーザ名</label>
+    <input type="text" name="name">
+    <label for="">パスワード</label>
+    <input type="password" name="pass">
+    <input type="submit" value="新規登録">
+</form>
 {% endblock %}
