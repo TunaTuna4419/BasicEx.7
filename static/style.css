@@ -26,3 +26,88 @@ button {
 }
 
 
+/*以上真太郎が追加したとこ*/
+
+/*以下古見が追加したとこ*/
+
+
+
+.container { /*平文とpタグ文を横並びにする*/
+    display: flex;
+    align-items: center; /* 縦方向の中央揃え */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 45px;  /* 上の余白 */
+    margin-left: 600px;
+}
+
+/*ここから文字を四角に収めるスタイル*/
+.length-fit {
+    width: fit-content; /* 子要素の幅に合わせる */
+}
+.box {
+    border: #4e7bcc 1px solid; /*境界線の指定*/
+    padding:10px;
+}
+.box p {
+    margin:0;
+    padding:0;
+}
+/*ここまで文字を四角に収めるスタイル*/
+
+.textbox{ /*テキストボックスの大きさ調節*/
+    padding: 12px;
+}
+
+
+/*ここから時間割のスタイル*/
+table {
+    width: 60%;
+    border-collapse: collapse;
+    color: #333;
+    display: inline-block;
+    vertical-align: top;
+}
+th, td {
+    border: 1px solid #000;
+    text-align: center;
+    padding: 8px;
+}
+thead {
+    background-color: #4CAF50;
+    color: #FFFFFF;
+}
+tbody tr {
+    background-color: #e8e8e8;
+}
+/*ここから時間割のスタイル*/
+
+/*ここから備考欄のスタイル*/
+.note-box {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+}
+.note-box input[type="text"] {
+    width: 300px;
+    height: 300px;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #000;
+}
+.formatted-text { /*user.html用*/
+    white-space: pre-wrap; /* テキスト内の改行やスペースを保持する */
+}
+.note-box div { /*user.html用*/
+    width: 300px;
+    height: 300px;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #000;
+}
+/*ここまで備考欄のスタイル*/
+
+

@@ -29,16 +29,67 @@ cssスタイル指定
 検索<input type = text id = name name = "name"/> <br>
 
 
+
+
+<!--知り合い新規登録ボタン等-->
 <h2>ユーザ名:{{ user.user_name }}</h2> <br>
+<button type = button >知り合い新規登録</button><br>
 <h2>並び替え</h2><br>
 <button type = button >名前順</button><button type = button >時期順</button><button type = button >講義順</button> <br>
 
 
 {% for user in Users %} 
-<details>
+  <details>
     <summary>{{user}}</summary>
-    Details of User{{user}}
+    <p>Details of User{{user}}</p>
+    <div class="length-fit">
+      <div class="box">
+        <button type="submit" name="delete-friend" >削除</button><button type="submit" name="update-friend" >更新</button>
+        <div class="container">
+          <div class="container">
+            <p>知り合った時期：</p>
+            <div class="length-fit">
+              <p class="box"><time datetime="{{date}}">{{date}}</time></p>
+            </div>
+          </div>
+          <div class="container">
+            <p>連絡先メモ：</p>
+              <div class="length-fit">
+                <p class="box">{{contactnote}}</time></p>
+              </div>
+          </div>
+        </div>
+        <h3>時間割</h3>
+        <div style="display: flex;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>月</th>
+                        <th>火</th>
+                        <th>水</th>
+                        <th>木</th>
+                        <th>金</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {% for linelectures in lectures %} <!-- linelecturesは時間割の1行ずつ -->
+                        <tr>
+                            {% for lecture in linelectures %}
+                                <td><p style="width: 100%; box-sizing: border-box;">{{lecture}}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>    
+            <div class="note-box">
+                <p>備考欄：<br>
+                <div class="formatted-text">
+                  {{note}}
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
   </details>
 {% endfor %}
-
 {% endblock %}

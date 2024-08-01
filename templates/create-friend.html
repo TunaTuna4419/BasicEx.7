@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}知り合い登録{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+{% endblock %}
+
+{% block header %}
+<div>
+    <h1>知り合い整理アプリ</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<form action="#" method="post">
+    <div class="container">
+        <div>
+            <div class="container">
+                <p>　ユーザ名：</p>
+                <div class="length-fit">
+                    <p class="box">{{受け取ったユーザ名}}</p>
+                </div>
+            </div>
+            <p>知り合い名：<input class="textbox" type="text" name="friend-name"></p>
+        </div>
+        <div class="button-container">
+            <button type="submit" name="create-friend" >入力完了</button>
+        </div>
+    </div>
+    <div class="container">
+        <p class="box">知り合った時期：
+        <input type="date"></p>
+        <p class="box">連絡先メモ（直接メールアドレスや電話番号を書くことは危険です。）：
+        <input type="text" name="contact-address"></p>  
+    </div>
+    <h3>時間割</h3>
+    <div style="display: flex;">
+        <table>
+            <thead>
+                <tr>
+                    <th>月</th>
+                    <th>火</th>
+                    <th>水</th>
+                    <th>木</th>
+                    <th>金</th>
+                </tr>
+            </thead>
+            <tbody> <!-- 下の角セルのnameは，分けないと後で引数として渡す時大変かも　-->
+                {% for i in range(6) %}
+                    <tr>
+                        {% for j in range(5) %}
+                            <td><input type="text" name="data{{ i * 5 + j + 1 }}" style="width: 100%; box-sizing: border-box;"></td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="note-box">
+            <p>備考欄：<br>
+            <input type="text" name="note"></p>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
